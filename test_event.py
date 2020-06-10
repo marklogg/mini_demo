@@ -9,8 +9,8 @@ from mini.blockapi.block_observe import ObserveInfraredDistance, ObserveInfrared
 from mini.blockapi.block_observe import ObserveRobotPosture, ObserveFallClimbResponse
 from mini.blockapi.block_observe import ObserveSpeechRecognise, SpeechRecogniseResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test_connect import test_connect, shutdown
+from test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def test_speech_recognise():

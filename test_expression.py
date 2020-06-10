@@ -7,8 +7,8 @@ from mini.blockapi.block_expression import ControlMouthLamp, ControlMouthRespons
 from mini.blockapi.block_expression import PlayExpression, PlayExpressionResponse, RobotExpressionType
 from mini.blockapi.block_expression import SetMouthLamp, SetMouthLampResponse, MouthLampColor
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown, test_start_run_program
-from .test_connect import test_get_device_by_name
+from test_connect import test_connect, shutdown, test_start_run_program
+from test_connect import test_get_device_by_name
 
 
 # 测试让眼睛演示个表情

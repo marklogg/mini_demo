@@ -4,8 +4,8 @@ from mini.blockapi.block_observe import ObserveFaceRecognise
 from mini.blockapi.block_sound import PlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_facerecognisetask_pb2 import FaceRecogniseTaskResponse
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test_connect import test_connect, shutdown
+from test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试, 检测到注册的人脸,则上报事件, 如果陌生人,返回"stranger"

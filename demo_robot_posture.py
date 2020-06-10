@@ -4,8 +4,8 @@ from mini.blockapi.block_observe import ObserveRobotPosture
 from mini.blockapi.block_sound import PlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observefallclimb_pb2 import ObserveFallClimbResponse
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test_connect import test_connect, shutdown
+from test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试,姿态检测

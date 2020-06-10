@@ -9,8 +9,8 @@ from mini.blockapi.block_sence import GetRegisterFaces, GetRegisterFacesResponse
 from mini.blockapi.block_sence import ObjectRecognise, RecogniseObjectResponse, ObjectRecogniseType
 from mini.blockapi.block_sence import TakePicture, TakePictureResponse, TakePictureType
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown, test_start_run_program
-from .test_connect import test_get_device_by_name
+from test_connect import test_connect, shutdown, test_start_run_program
+from test_connect import test_get_device_by_name
 
 
 # 测试人脸侦测

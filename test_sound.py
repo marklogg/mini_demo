@@ -8,8 +8,8 @@ from mini.blockapi.block_sound import PlayOnlineMusic, MusicResponse
 from mini.blockapi.block_sound import PlayTTS, ControlTTSResponse, TTSControlType
 from mini.blockapi.block_sound import StopAllAudio, StopAudioResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test_connect import test_connect, shutdown
+from test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试text合成声音

@@ -6,8 +6,8 @@ from mini.blockapi.block_action import GetActionList, GetActionListResponse, Rob
 from mini.blockapi.block_action import MoveRobot, MoveRobotDirection, MoveRobotResponse
 from mini.blockapi.block_action import PlayAction, PlayActionResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test_connect import test_connect, shutdown
+from test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试, 执行一个动作文件
