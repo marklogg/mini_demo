@@ -1,13 +1,13 @@
 import asyncio
 
-from mini.blockapi.base_api import BlockApiResultType
-from mini.blockapi.block_action import ChangeRobotVolume, ChangeRobotVolumeResponse
-from mini.blockapi.block_action import GetActionList, GetActionListResponse, RobotActionType
-from mini.blockapi.block_action import MoveRobot, MoveRobotDirection, MoveRobotResponse
-from mini.blockapi.block_action import PlayAction, PlayActionResponse
+from mini.apis.base_api import MiniApiResultType
+from mini.apis.api_action import ChangeRobotVolume, ChangeRobotVolumeResponse
+from mini.apis.api_action import GetActionList, GetActionListResponse, RobotActionType
+from mini.apis.api_action import MoveRobot, MoveRobotDirection, MoveRobotResponse
+from mini.apis.api_action import PlayAction, PlayActionResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_connect, shutdown
+from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试, 执行一个动作文件
@@ -19,7 +19,7 @@ async def test_play_action():
 
     print(f'test_play_action result:{response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_play_action timetout'
+    assert resultType == MiniApiResultType.Success, 'test_play_action timetout'
     assert response is not None and isinstance(response, PlayActionResponse), 'test_play_action result unavailable'
     assert response.isSuccess, 'play_action failed'
 
@@ -34,7 +34,7 @@ async def test_move_robot():
 
     print(f'test_move_robot result:{response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_move_robot timetout'
+    assert resultType == MiniApiResultType.Success, 'test_move_robot timetout'
     assert response is not None and isinstance(response, MoveRobotResponse), 'test_move_robot result unavailable'
     assert response.isSuccess, 'move_robot failed'
 
@@ -48,7 +48,7 @@ async def test_get_action_list():
 
     print(f'test_get_action_list result:{response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_get_action_list timetout'
+    assert resultType == MiniApiResultType.Success, 'test_get_action_list timetout'
     assert response is not None and isinstance(response,
                                                GetActionListResponse), 'test_get_action_list result unavailable'
     assert response.isSuccess, 'get_action_list failed'
@@ -63,7 +63,7 @@ async def test_change_robot_volume():
 
     print(f'test_change_robot_volume result:{response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_change_robot_volume timetout'
+    assert resultType == MiniApiResultType.Success, 'test_change_robot_volume timetout'
     assert response is not None and isinstance(response,
                                                ChangeRobotVolumeResponse), 'test_change_robot_volume result unavailable'
     assert response.isSuccess, 'get_action_list failed'

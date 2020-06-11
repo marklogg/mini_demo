@@ -1,14 +1,14 @@
 import asyncio
 
-from mini.blockapi import errors
-from mini.blockapi.base_api import BlockApiResultType
-from mini.blockapi.block_expression import ControlBehavior, ControlBehaviorResponse, RobotBehaviorControlType
-from mini.blockapi.block_expression import ControlMouthLamp, ControlMouthResponse
-from mini.blockapi.block_expression import PlayExpression, PlayExpressionResponse, RobotExpressionType
-from mini.blockapi.block_expression import SetMouthLamp, SetMouthLampResponse, MouthLampColor
+from mini.apis import errors
+from mini.apis.base_api import MiniApiResultType
+from mini.apis.api_expression import ControlBehavior, ControlBehaviorResponse, RobotBehaviorControlType
+from mini.apis.api_expression import ControlMouthLamp, ControlMouthResponse
+from mini.apis.api_expression import PlayExpression, PlayExpressionResponse, RobotExpressionType
+from mini.apis.api_expression import SetMouthLamp, SetMouthLampResponse, MouthLampColor
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown, test_start_run_program
-from .test_connect import test_get_device_by_name
+from test.test_connect import test_connect, shutdown, test_start_run_program
+from test.test_connect import test_get_device_by_name
 
 
 # 测试让眼睛演示个表情
@@ -20,7 +20,7 @@ async def test_play_expression():
 
     print(f'test_play_expression result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_play_expression timetout'
+    assert resultType == MiniApiResultType.Success, 'test_play_expression timetout'
     assert response is not None and isinstance(response,
                                                PlayExpressionResponse), 'test_play_expression result unavailable'
     assert response.isSuccess, 'play_expression failed'
@@ -37,7 +37,7 @@ async def test_control_behavior():
     print(
         'resultCode = {0}, error = {1}'.format(response.resultCode, errors.get_express_error_str(response.resultCode)))
 
-    assert resultType == BlockApiResultType.Success, 'test_control_behavior timetout'
+    assert resultType == MiniApiResultType.Success, 'test_control_behavior timetout'
     assert response is not None and isinstance(response,
                                                ControlBehaviorResponse), 'test_control_behavior result unavailable'
     assert response.isSuccess, 'control_behavior failed'
@@ -55,7 +55,7 @@ async def test_set_mouth_lamp():
 
     print(f'test_set_mouth_lamp result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_set_mouth_lamp timetout'
+    assert resultType == MiniApiResultType.Success, 'test_set_mouth_lamp timetout'
     assert response is not None and isinstance(response, SetMouthLampResponse), 'test_set_mouth_lamp result unavailable'
     assert response.isSuccess or response.resultCode == 504, 'set_mouth_lamp failed'
 
@@ -68,7 +68,7 @@ async def test_control_mouth_lamp():
 
     print(f'test_control_mouth_lamp result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_control_mouth_lamp timetout'
+    assert resultType == MiniApiResultType.Success, 'test_control_mouth_lamp timetout'
     assert response is not None and isinstance(response,
                                                ControlMouthResponse), 'test_control_mouth_lamp result unavailable'
     assert response.isSuccess or response.resultCode == 504, 'control_mouth_lamp failed'

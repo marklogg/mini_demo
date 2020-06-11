@@ -1,11 +1,11 @@
 import asyncio
 
-from mini.blockapi.block_observe import ObserveFaceDetect
-from mini.blockapi.block_sound import PlayTTS
+from mini.apis.api_observe import ObserveFaceDetect
+from mini.apis.api_sound import PlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_facedetecttask_pb2 import FaceDetectTaskResponse
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_connect, shutdown
+from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 人脸检测,检测到人脸,则上报事件

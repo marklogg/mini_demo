@@ -1,16 +1,16 @@
 import asyncio
 
-from mini.blockapi.base_api import BlockApiResultType
-from mini.blockapi.block_sence import FaceAnalysis, FaceAnalyzeResponse
-from mini.blockapi.block_sence import FaceDetect, FaceDetectResponse
-from mini.blockapi.block_sence import FaceRecognise, FaceRecogniseResponse
-from mini.blockapi.block_sence import GetInfraredDistance, GetInfraredDistanceResponse
-from mini.blockapi.block_sence import GetRegisterFaces, GetRegisterFacesResponse
-from mini.blockapi.block_sence import ObjectRecognise, RecogniseObjectResponse, ObjectRecogniseType
-from mini.blockapi.block_sence import TakePicture, TakePictureResponse, TakePictureType
+from mini.apis.base_api import MiniApiResultType
+from mini.apis.api_sence import FaceAnalysis, FaceAnalyzeResponse
+from mini.apis.api_sence import FaceDetect, FaceDetectResponse
+from mini.apis.api_sence import FaceRecognise, FaceRecogniseResponse
+from mini.apis.api_sence import GetInfraredDistance, GetInfraredDistanceResponse
+from mini.apis.api_sence import GetRegisterFaces, GetRegisterFacesResponse
+from mini.apis.api_sence import ObjectRecognise, RecogniseObjectResponse, ObjectRecogniseType
+from mini.apis.api_sence import TakePicture, TakePictureResponse, TakePictureType
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown, test_start_run_program
-from .test_connect import test_get_device_by_name
+from test.test_connect import test_connect, shutdown, test_start_run_program
+from test.test_connect import test_get_device_by_name
 
 
 # 测试人脸侦测
@@ -22,7 +22,7 @@ async def test_face_detect():
 
     print(f'test_face_detect result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_face_detect timetout'
+    assert resultType == MiniApiResultType.Success, 'test_face_detect timetout'
     assert response is not None and isinstance(response, FaceDetectResponse), 'test_face_detect result unavailable'
     assert response.isSuccess, 'face_detect failed'
 
@@ -35,7 +35,7 @@ async def test_face_analysis():
 
     print(f'test_face_analysis result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_face_analysis timetout'
+    assert resultType == MiniApiResultType.Success, 'test_face_analysis timetout'
     assert response is not None and isinstance(response, FaceAnalyzeResponse), 'test_face_analysis result unavailable'
     assert response.isSuccess, 'face_analysis failed'
 
@@ -49,7 +49,7 @@ async def test_object_Recognise():
 
     print(f'test_object_Recognise result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_object_Recognise timetout'
+    assert resultType == MiniApiResultType.Success, 'test_object_Recognise timetout'
     assert response is not None and isinstance(response,
                                                RecogniseObjectResponse), 'test_object_Recognise result unavailable'
     assert response.isSuccess, 'test_object_Recognise failed'
@@ -63,7 +63,7 @@ async def test_take_picture():
 
     print(f'test_take_picture result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_take_picture timetout'
+    assert resultType == MiniApiResultType.Success, 'test_take_picture timetout'
     assert response is not None and isinstance(response, TakePictureResponse), 'test_take_picture result unavailable'
     assert response.isSuccess, 'test_take_picture failed'
 
@@ -75,7 +75,7 @@ async def test_face_recognise():
 
     print(f'test_face_recognise result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_face_recognise timetout'
+    assert resultType == MiniApiResultType.Success, 'test_face_recognise timetout'
     assert response is not None and isinstance(response,
                                                FaceRecogniseResponse), 'test_face_recognise result unavailable'
     assert response.isSuccess, 'test_face_recognise failed'
@@ -88,7 +88,7 @@ async def test_get_infrared_distance():
 
     print(f'test_get_infrared_distance result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_get_infrared_distance timetout'
+    assert resultType == MiniApiResultType.Success, 'test_get_infrared_distance timetout'
     assert response is not None and isinstance(response,
                                                GetInfraredDistanceResponse), 'test_get_infrared_distance result unavailable'
     assert response.distance > 0, 'test_get_infrared_distance failed'
@@ -101,7 +101,7 @@ async def test_get_register_faces():
 
     print(f'test_get_register_faces result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_get_register_faces timetout'
+    assert resultType == MiniApiResultType.Success, 'test_get_register_faces timetout'
     assert response is not None and isinstance(response,
                                                GetRegisterFacesResponse), 'test_get_register_faces result unavailable'
     assert response.isSuccess, 'test_get_register_faces failed'

@@ -1,12 +1,12 @@
 import asyncio
 
-from mini.blockapi.base_api import BlockApiResultType
-from mini.blockapi.block_content import QueryWiKi, WikiResponse
-from mini.blockapi.block_content import StartTranslate, TranslateResponse
+from mini.apis.base_api import MiniApiResultType
+from mini.apis.api_content import QueryWiKi, WikiResponse
+from mini.apis.api_content import StartTranslate, TranslateResponse
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.cloudtranslate_pb2 import CN, EN
-from test_connect import test_connect, shutdown, test_start_run_program
-from test_connect import test_get_device_by_name
+from test.test_connect import test_connect, shutdown, test_start_run_program
+from test.test_connect import test_get_device_by_name
 
 
 # 测试, 查询wiki
@@ -18,7 +18,7 @@ async def test_query_wiki():
 
     print(f'test_query_wiki result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_query_wiki timetout'
+    assert resultType == MiniApiResultType.Success, 'test_query_wiki timetout'
     assert response is not None and isinstance(response, WikiResponse), 'test_query_wiki result unavailable'
     assert response.isSuccess, 'query_wiki failed'
 
@@ -35,7 +35,7 @@ async def test_start_translate():
 
     print(f'test_start_translate result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_start_translate timetout'
+    assert resultType == MiniApiResultType.Success, 'test_start_translate timetout'
     assert response is not None and isinstance(response, TranslateResponse), 'test_start_translate result unavailable'
     assert response.isSuccess, 'start_translate failed'
 

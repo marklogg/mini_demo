@@ -1,11 +1,11 @@
 import asyncio
 
-from mini.blockapi.block_expression import ControlBehavior
-from mini.blockapi.block_observe import ObserveHeadRacket
+from mini.apis.api_expression import ControlBehavior
+from mini.apis.api_observe import ObserveHeadRacket
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observeheadracket_pb2 import ObserveHeadRacketResponse
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_connect, shutdown
+from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试, 触摸监听

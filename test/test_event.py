@@ -2,15 +2,15 @@
 
 import asyncio
 
-from mini.blockapi.block_observe import ObserveFaceDetect, FaceDetectTaskResponse
-from mini.blockapi.block_observe import ObserveFaceRecognise, FaceRecogniseTaskResponse
-from mini.blockapi.block_observe import ObserveHeadRacket, ObserveHeadRacketResponse
-from mini.blockapi.block_observe import ObserveInfraredDistance, ObserveInfraredDistanceResponse
-from mini.blockapi.block_observe import ObserveRobotPosture, ObserveFallClimbResponse
-from mini.blockapi.block_observe import ObserveSpeechRecognise, SpeechRecogniseResponse
+from mini.apis.api_observe import ObserveFaceDetect, FaceDetectTaskResponse
+from mini.apis.api_observe import ObserveFaceRecognise, FaceRecogniseTaskResponse
+from mini.apis.api_observe import ObserveHeadRacket, ObserveHeadRacketResponse
+from mini.apis.api_observe import ObserveInfraredDistance, ObserveInfraredDistanceResponse
+from mini.apis.api_observe import ObserveRobotPosture, ObserveFallClimbResponse
+from mini.apis.api_observe import ObserveSpeechRecognise, SpeechRecogniseResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_connect, shutdown
+from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def test_speech_recognise():

@@ -1,15 +1,15 @@
 import asyncio
 
-from mini.blockapi import errors
-from mini.blockapi.base_api import BlockApiResultType
-from mini.blockapi.block_sound import FetchAudioList, GetAudioListResponse, AudioType
-from mini.blockapi.block_sound import PlayAudio, PlayAudioResponse
-from mini.blockapi.block_sound import PlayOnlineMusic, MusicResponse
-from mini.blockapi.block_sound import PlayTTS, ControlTTSResponse, TTSControlType
-from mini.blockapi.block_sound import StopAllAudio, StopAudioResponse
+from mini.apis import errors
+from mini.apis.base_api import MiniApiResultType
+from mini.apis.api_sound import FetchAudioList, GetAudioListResponse, AudioType
+from mini.apis.api_sound import PlayAudio, PlayAudioResponse
+from mini.apis.api_sound import PlayOnlineMusic, MusicResponse
+from mini.apis.api_sound import PlayTTS, ControlTTSResponse, TTSControlType
+from mini.apis.api_sound import StopAllAudio, StopAudioResponse
 from mini.dns.dns_browser import WiFiDevice
-from .test_connect import test_connect, shutdown
-from .test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_connect, shutdown
+from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 # 测试text合成声音
@@ -26,7 +26,7 @@ async def test_play_tts():
     # 如果resultCode !=0 可以通过errors.get_speech_error_str(response.resultCode)) 查询错误描述信息
     print('resultCode = {0}, error = {1}'.format(response.resultCode, errors.get_speech_error_str(response.resultCode)))
 
-    assert resultType == BlockApiResultType.Success, 'test_play_tts timetout'
+    assert resultType == MiniApiResultType.Success, 'test_play_tts timetout'
     assert response is not None and isinstance(response, ControlTTSResponse), 'test_play_tts result unavailable'
     assert response.isSuccess, 'test_play_tts failed'
 
@@ -42,7 +42,7 @@ async def test_play_audio():
     print(f'test_play_audio result: {response}')
     print('resultCode = {0}, error = {1}'.format(response.resultCode, errors.get_speech_error_str(response.resultCode)))
 
-    assert resultType == BlockApiResultType.Success, 'test_play_audio timetout'
+    assert resultType == MiniApiResultType.Success, 'test_play_audio timetout'
     assert response is not None and isinstance(response, PlayAudioResponse), 'test_play_audio result unavailable'
     assert response.isSuccess, 'test_play_audio failed'
 
@@ -56,7 +56,7 @@ async def test_get_audio_list():
 
     print(f'test_get_audio_list result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_get_audio_list timetout'
+    assert resultType == MiniApiResultType.Success, 'test_get_audio_list timetout'
     assert response is not None and isinstance(response, GetAudioListResponse), 'test_play_audio result unavailable'
     assert response.isSuccess, 'test_get_audio_list failed'
 
@@ -75,7 +75,7 @@ async def test_stop_audio():
 
     print(f'test_stop_audio:{response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_stop_audio timetout'
+    assert resultType == MiniApiResultType.Success, 'test_stop_audio timetout'
     assert response is not None and isinstance(response, StopAudioResponse), 'test_stop_audio result unavailable'
     assert response.isSuccess, 'test_stop_audio failed'
 
@@ -88,7 +88,7 @@ async def test_play_online_music():
 
     print(f'test_play_online_music result: {response}')
 
-    assert resultType == BlockApiResultType.Success, 'test_play_online_music timetout'
+    assert resultType == MiniApiResultType.Success, 'test_play_online_music timetout'
     assert response is not None and isinstance(response, MusicResponse), 'test_play_online_music result unavailable'
     assert response.isSuccess, 'test_play_online_music failed'
 
