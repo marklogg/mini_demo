@@ -9,6 +9,13 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def test_ObserveInfraredDistance():
+    """监听红外距离demo
+
+    监听红外距离事件，机器人上报检测到的与面前最近障碍物的红外距离
+
+    当返回的红外距离小于500，停止监听，并播报"检测到红外距离xxx"(xxx是红外距离数值)
+
+    """
     # 红外监听对象
     observer: ObserveInfraredDistance = ObserveInfraredDistance()
 
@@ -18,15 +25,15 @@ async def test_ObserveInfraredDistance():
         print("distance = {0}".format(str(msg.distance)))
         if msg.distance < 500:
             observer.stop()
-            asyncio.create_task(__tts())
+            asyncio.create_task(__tts(msg.distance))
 
     observer.set_handler(handler)
     observer.start()
     await asyncio.sleep(0)
 
 
-async def __tts():
-    result = await PlayTTS(text="是不是有人在啊， 你是谁啊").execute()
+async def __tts(distance: int):
+    result = await PlayTTS(text=f"检测到红外距离{distance}").execute()
     print(f"tts over {result}")
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 

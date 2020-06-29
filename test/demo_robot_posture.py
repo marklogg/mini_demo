@@ -1,6 +1,6 @@
 import asyncio
 
-from mini.apis.api_observe import ObserveRobotPosture
+from mini.apis.api_observe import ObserveRobotPosture, RobotPosture
 from mini.apis.api_sound import PlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observefallclimb_pb2 import ObserveFallClimbResponse
@@ -10,10 +10,12 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 # 测试,姿态检测
 async def test_ObserveRobotPosture():
-    # 创建监听对象
-    observer: ObserveRobotPosture = ObserveRobotPosture()
+    """监听机器人姿态demo
 
-    # 事件处理器
+    监听机器人姿态变化事件，机器上报当前的姿态RobotPosture(当发生姿态发生改变的时候)
+
+    当机器人侧躺(LYING)或平躺(LYINGDOWN)时，停止监听，并播报"我摔倒了"
+
     # ObserveFallClimbResponse.status
     #     STAND = 1; //站立
     #     SPLITS_LEFT = 2; //左劈叉
@@ -26,9 +28,14 @@ async def test_ObserveRobotPosture():
     #     SPLITS_LEFT_1 = 9; //左劈叉1
     #     SPLITS_RIGHT_2 = 10;//右劈叉2
     #     BEND = 11;//弯腰
+
+    """
+    # 创建监听对象
+    observer: ObserveRobotPosture = ObserveRobotPosture()
+
     def handler(msg: ObserveFallClimbResponse):
         print("{0}".format(msg))
-        if msg.status == 8 or msg.status == 7:
+        if msg.status == RobotPosture.LYING or msg.status == RobotPosture.LYING_DOWN:
             observer.stop()
             asyncio.create_task(__tts())
 

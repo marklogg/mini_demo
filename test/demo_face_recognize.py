@@ -10,6 +10,17 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 # 测试, 检测到注册的人脸,则上报事件, 如果陌生人,返回"stranger"
 async def test_ObserveFaceRecognise():
+    """人脸识别demo
+
+    监听人脸识别事件，机器人上报识别到的人脸信息(数组)
+
+    如果是已注册的人脸，返回人脸详细信息：id，名字，性别，年龄
+
+    如果是陌生人，返回 name: "stranger"
+
+    当成功识别到人脸后，停止监听，播报"你好，xxx"(xxx为人脸信息中的name)
+
+    """
     observer: ObserveFaceRecognise = ObserveFaceRecognise()
 
     # FaceRecogniseTaskResponse.faceInfos: [FaceInfoResponse]

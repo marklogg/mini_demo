@@ -1,7 +1,7 @@
 import asyncio
 
 from mini.apis.api_expression import ControlBehavior
-from mini.apis.api_observe import ObserveHeadRacket
+from mini.apis.api_observe import ObserveHeadRacket, HeadRacketType
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observeheadracket_pb2 import ObserveHeadRacketResponse
 from test.test_connect import test_connect, shutdown
@@ -10,6 +10,19 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 # 测试, 触摸监听
 async def test_ObserveHeadRacket():
+    """监听拍头事件demo
+
+    监听拍头事件，当机器人头部被拍击时，上报拍头类型
+
+    当机器人头部被双击时，停止监听，并跳一个舞蹈
+
+    # ObserveHeadRacketResponse.type:
+    # class HeadRacketType(enum.Enum):
+    #     SINGLE_CLICK = 1  # 单击
+    #     LONG_PRESS = 2  # 长按
+    #     DOUBLE_CLICK = 3  # 双击
+
+    """
     # 创建监听
     observer: ObserveHeadRacket = ObserveHeadRacket()
 
@@ -22,10 +35,13 @@ async def test_ObserveHeadRacket():
     #     DOUBLE_CLICK = 3  # 双击
     def handler(msg: ObserveHeadRacketResponse):
         # 监听到一个事件后,停止监听,
-        observer.stop()
         print("{0}".format(str(msg.type)))
-        # 执行个舞动
-        asyncio.create_task(__dance())
+
+        if msg.type == HeadRacketType.DOUBLE_CLICK:
+
+            observer.stop()
+            # 执行个舞动
+            asyncio.create_task(__dance())
 
     observer.set_handler(handler)
     # 启动

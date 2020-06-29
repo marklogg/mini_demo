@@ -8,8 +8,14 @@ from test.test_connect import test_connect, shutdown
 from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
-# 人脸检测,检测到人脸,则上报事件
 async def test_ObserveFaceDetect():
+    """人脸个数检测demo
+
+    人脸个数检测,检测到人脸,则上报事件
+
+    当检测到人脸个数大于等于1个时，停止监听，并播报"在我面前好像有xx个人脸"(xx为人脸个数)
+
+    """
     observer: ObserveFaceDetect = ObserveFaceDetect()
 
     # FaceDetectTaskResponse.count

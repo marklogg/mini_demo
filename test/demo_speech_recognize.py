@@ -16,6 +16,20 @@ async def __tts():
 
 # 测试监听语音识别
 async def test_speech_recognise():
+    """监听语音识别demo
+
+    监听语音识别事件，机器人上报语音识别后的文字
+
+    当识别到语音为"悟空"时，播报"你好， 我是悟空， 啦里啦，啦里啦"
+    当识别到语音为"结束"时，停止监听
+
+    # SpeechRecogniseResponse.text
+
+    # SpeechRecogniseResponse.isSuccess
+
+    # SpeechRecogniseResponse.resultCode
+
+    """
     # 语音监听对象
     observe: ObserveSpeechRecognise = ObserveSpeechRecognise()
 
