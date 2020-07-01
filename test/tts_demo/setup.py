@@ -22,7 +22,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'alphamini',
+        'alphamini > 0.1.3',
     ],
     entry_points={
         'console_scripts': [

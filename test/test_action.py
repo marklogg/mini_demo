@@ -1,6 +1,6 @@
 import asyncio
 
-from mini.apis.api_action import ChangeRobotVolume, ChangeRobotVolumeResponse
+
 from mini.apis.api_action import GetActionList, GetActionListResponse, RobotActionType
 from mini.apis.api_action import MoveRobot, MoveRobotDirection, MoveRobotResponse
 from mini.apis.api_action import PlayAction, PlayActionResponse
@@ -79,28 +79,6 @@ async def test_get_action_list():
     assert response.isSuccess, 'get_action_list failed'
 
 
-# 测试, 改变机器人的音量
-async def test_change_robot_volume():
-    """调整机器人音量demo
-
-    设置机器人音量为0.5，等待回复结果
-
-    #ChangeRobotVolumeResponse.isSuccess : 是否成功
-
-    #ChangeRobotVolumeResponse.resultCode : 返回码
-
-    """
-    # volume: 0~1.0
-    block: ChangeRobotVolume = ChangeRobotVolume(volume=0.5)
-    # response:ChangeRobotVolumeResponse
-    (resultType, response) = await block.execute()
-
-    print(f'test_change_robot_volume result:{response}')
-
-    assert resultType == MiniApiResultType.Success, 'test_change_robot_volume timetout'
-    assert response is not None and isinstance(response,
-                                               ChangeRobotVolumeResponse), 'test_change_robot_volume result unavailable'
-    assert response.isSuccess, 'get_action_list failed'
 
 
 async def main():
@@ -111,7 +89,6 @@ async def main():
         await test_play_action()
         await test_move_robot()
         await test_get_action_list()
-        await test_change_robot_volume()
         await shutdown()
 
 
