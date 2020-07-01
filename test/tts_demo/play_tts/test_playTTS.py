@@ -22,6 +22,6 @@ def main():
     if device:
         asyncio.get_event_loop().run_until_complete(mini_sdk.connect(device))
         asyncio.get_event_loop().run_until_complete(StartRunProgram().execute())
+        asyncio.get_event_loop().run_until_complete(asyncio.sleep(6))
         asyncio.get_event_loop().run_until_complete(play_tts())
-        asyncio.get_event_loop().run_until_complete(asyncio.sleep(2))
         asyncio.get_event_loop().run_until_complete(mini_sdk.release())
