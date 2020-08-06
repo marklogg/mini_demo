@@ -1,7 +1,7 @@
 import asyncio
 
 from mini.apis.api_observe import ObserveSpeechRecognise
-from mini.apis.api_sound import PlayTTS
+from mini.apis.api_sound import StartPlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_speechrecognise_pb2 import SpeechRecogniseResponse
 from test.test_connect import test_connect, shutdown
@@ -9,7 +9,7 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def __tts():
-    block: PlayTTS = PlayTTS(text="你好， 我是悟空， 啦里啦，啦里啦")
+    block: StartPlayTTS = StartPlayTTS(text="你好， 我是悟空， 啦里啦，啦里啦")
     response = await block.execute()
     print(f'tes_play_tts: {response}')
 
@@ -21,6 +21,7 @@ async def test_speech_recognise():
     监听语音识别事件，机器人上报语音识别后的文字
 
     当识别到语音为"悟空"时，播报"你好， 我是悟空， 啦里啦，啦里啦"
+
     当识别到语音为"结束"时，停止监听
 
     # SpeechRecogniseResponse.text
@@ -62,5 +63,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_speech_recognise())
+        # 定义了事件监听对象,必须让event_loop.run_forver()
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

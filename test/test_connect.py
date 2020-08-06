@@ -2,7 +2,6 @@ import asyncio
 import logging
 
 import mini.mini_sdk as MiniSdk
-from mini.apis.api_setup import StartRunProgram
 from mini.dns.dns_browser import WiFiDevice
 
 
@@ -18,7 +17,7 @@ async def test_get_device_by_name():
         WiFiDevice: 包含机器人名称,ip,port等信息
 
     """
-    result: WiFiDevice = await MiniSdk.get_device_by_name("00022", 10)
+    result: WiFiDevice = await MiniSdk.get_device_by_name("00879", 10)
     print(f"test_get_device_by_name result:{result}")
     return result
 
@@ -39,7 +38,7 @@ async def test_get_device_list():
 
 
 # MiniSdk.connect 返回值为bool, 这里忽略返回值
-async def test_connect(dev: WiFiDevice):
+async def test_connect(dev: WiFiDevice) -> bool:
     """连接设备
 
     连接指定的设备
@@ -51,7 +50,7 @@ async def test_connect(dev: WiFiDevice):
         bool: 是否连接成功
 
     """
-    await MiniSdk.connect(dev)
+    return await MiniSdk.connect(dev)
 
 
 # 进入编程模式,机器人有个tts播报,这里通过asyncio.sleep 让当前协程等6秒返回,让机器人播完
@@ -64,8 +63,7 @@ async def test_start_run_program():
         None:
 
     """
-    await StartRunProgram().execute()
-    await asyncio.sleep(6)
+    await MiniSdk.enter_program()
 
 
 # 断开连接并释放资源
@@ -75,15 +73,20 @@ async def shutdown():
     断开当前连接的设备，并释放资源
 
     """
-    await asyncio.sleep(1)
+    await MiniSdk.quit_program()
     await MiniSdk.release()
 
 
 # 默认的日志级别是Warning, 设置为INFO
 MiniSdk.set_log_level(logging.INFO)
 
-if __name__ == '__main__':
-    device: WiFiDevice = asyncio.get_event_loop().run_until_complete(test_get_device_by_name())
+
+async def main():
+    device: WiFiDevice = await test_get_device_by_name()
     if device:
-        asyncio.get_event_loop().run_until_complete(test_connect(device))
-        asyncio.get_event_loop().run_until_complete(shutdown())
+        await test_connect(device)
+        await shutdown()
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

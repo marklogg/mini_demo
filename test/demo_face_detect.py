@@ -1,7 +1,7 @@
 import asyncio
 
 from mini.apis.api_observe import ObserveFaceDetect
-from mini.apis.api_sound import PlayTTS
+from mini.apis.api_sound import StartPlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_facedetecttask_pb2 import FaceDetectTaskResponse
 from test.test_connect import test_connect, shutdown
@@ -33,7 +33,7 @@ async def test_ObserveFaceDetect():
 
 
 async def __tts(count):
-    await PlayTTS(text=f'在我面前好像有{count}个人').execute()
+    await StartPlayTTS(text=f'在我面前好像有{count}个人').execute()
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
 
@@ -43,5 +43,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveFaceDetect())
+        # 定义了事件监听对象,必须让event_loop.run_forver()
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

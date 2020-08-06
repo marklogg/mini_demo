@@ -1,13 +1,12 @@
 import asyncio
 
-
+from mini import mini_sdk as MiniSdk
 from mini.apis.api_action import GetActionList, GetActionListResponse, RobotActionType
 from mini.apis.api_action import MoveRobot, MoveRobotDirection, MoveRobotResponse
 from mini.apis.api_action import PlayAction, PlayActionResponse
 from mini.apis.base_api import MiniApiResultType
 from mini.dns.dns_browser import WiFiDevice
-from test.test_connect import test_connect, shutdown
-from test.test_connect import test_get_device_by_name, test_start_run_program
+from test.test_connect import test_get_device_by_name
 
 
 # 测试, 执行一个动作文件
@@ -79,18 +78,17 @@ async def test_get_action_list():
     assert response.isSuccess, 'get_action_list failed'
 
 
-
-
 async def main():
     device: WiFiDevice = await test_get_device_by_name()
     if device:
-        await test_connect(device)
-        await test_start_run_program()
+        await MiniSdk.connect(device)
+        await MiniSdk.enter_program()
         await test_play_action()
         await test_move_robot()
         await test_get_action_list()
-        await shutdown()
+        await MiniSdk.quit_program()
+        await MiniSdk.release()
 
 
 if __name__ == '__main__':
-    asyncio.get_event_loop().run_until_complete(main())
+    asyncio.run(main())

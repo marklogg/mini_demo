@@ -48,9 +48,13 @@ async def test_face_analysis():
     当多人存在摄像头前时，返回占画面比例最大的那个人脸信息
 
     返回值：示例 {"age": 24, "gender": 99, "height": 238, "width": 238}
+
     age: 年龄
+
     gender：[1, 100], 小于50为女性，大于50为男性
+
     height：人脸在摄像头画面中的高度
+
     width：人脸在摄像头画面中的宽度
 
     """
@@ -176,10 +180,14 @@ async def test_face_recognise():
 
 
     #FaceRecogniseResponse.faceInfos : [FaceInfoResponse] 人脸信息数组
-    FaceInfoResponse.id : 人脸id
-    FaceInfoResponse.name : 姓名，如果是陌生人，则默认name为"stranger"
-    FaceInfoResponse.gender : 性别
-    FaceInfoResponse.age : 年龄
+
+        FaceInfoResponse.id : 人脸id
+
+        FaceInfoResponse.name : 姓名，如果是陌生人，则默认name为"stranger"
+
+        FaceInfoResponse.gender : 性别
+
+        FaceInfoResponse.age : 年龄
 
     #FaceRecogniseResponse.isSuccess : 是否成功
 
@@ -226,10 +234,14 @@ async def test_get_register_faces():
     获取在机器人中已注册的所有人脸信息，并等待结果
 
     #GetRegisterFacesResponse.faceInfos : [FaceInfoResponse] 人脸信息数组
-    #FaceInfoResponse.id : 人脸id
-    #FaceInfoResponse.name : 姓名
-    #FaceInfoResponse.gender : 性别
-    #FaceInfoResponse.age : 年龄
+
+        #FaceInfoResponse.id : 人脸id
+
+        #FaceInfoResponse.name : 姓名
+
+        #FaceInfoResponse.gender : 性别
+
+        #FaceInfoResponse.age : 年龄
 
     #GetRegisterFacesResponse.isSuccess : 是否成功
 
@@ -249,19 +261,24 @@ async def test_get_register_faces():
     assert response.isSuccess, 'test_get_register_faces failed'
 
 
-if __name__ == '__main__':
-    device: WiFiDevice = asyncio.get_event_loop().run_until_complete(test_get_device_by_name())
+async def main():
+    device: WiFiDevice = await test_get_device_by_name()
     if device:
-        asyncio.get_event_loop().run_until_complete(test_connect(device))
-        asyncio.get_event_loop().run_until_complete(test_start_run_program())
-        asyncio.get_event_loop().run_until_complete(test_face_detect())
-        asyncio.get_event_loop().run_until_complete(test_face_analysis())
-        asyncio.get_event_loop().run_until_complete(test_take_picture())
-        asyncio.get_event_loop().run_until_complete(test_face_recognise())
-        asyncio.get_event_loop().run_until_complete(test_get_infrared_distance())
-        asyncio.get_event_loop().run_until_complete(test_get_register_faces())
-        asyncio.get_event_loop().run_until_complete(test_object_recognise_flower())
-        asyncio.get_event_loop().run_until_complete(test_object_recognise_fruit())
-        asyncio.get_event_loop().run_until_complete(test_object_recognise_gesture())
+        await test_connect(device)
+        await test_start_run_program()
 
-        asyncio.get_event_loop().run_until_complete(shutdown())
+        await test_face_detect()
+        await test_face_analysis()
+        await test_take_picture()
+        await test_face_recognise()
+        await test_get_infrared_distance()
+        await test_get_register_faces()
+        await test_object_recognise_flower()
+        await test_object_recognise_fruit()
+        await test_object_recognise_gesture()
+
+        await shutdown()
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

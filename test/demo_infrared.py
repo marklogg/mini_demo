@@ -1,7 +1,7 @@
 import asyncio
 
 from mini.apis.api_observe import ObserveInfraredDistance
-from mini.apis.api_sound import PlayTTS
+from mini.apis.api_sound import StartPlayTTS
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observeinfrareddistance_pb2 import ObserveInfraredDistanceResponse
 from test.test_connect import test_connect, shutdown
@@ -33,7 +33,7 @@ async def test_ObserveInfraredDistance():
 
 
 async def __tts(distance: int):
-    result = await PlayTTS(text=f"检测到红外距离{distance}").execute()
+    result = await StartPlayTTS(text=f"检测到红外距离{distance}").execute()
     print(f"tts over {result}")
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
@@ -44,5 +44,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveInfraredDistance())
+        # 定义了事件监听对象,必须让event_loop.run_forver()
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

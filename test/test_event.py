@@ -18,8 +18,6 @@ async def test_speech_recognise():
 
     监听语音识别事件，校验识别是否成功，识别的结果文本是否有值，把结果存入result数组
 
-    10s后停止监听
-
     延时5s，结束函数，校验result中是否有值
 
     """
@@ -55,8 +53,6 @@ async def test_face_detect():
     """测试监听人脸个数
 
     监听人脸个数，校验成功结果，校验人脸个数大于0(需要有人脸在机器人面前)，把人脸个数结果存入result数组
-
-    10s后结束监听
 
     延时5s，结束函数，校验result数组是否有值
 
@@ -132,8 +128,6 @@ async def test_infrared_distance():
 
     监听红外距离事件，校验结果distance是否有效(distance>0)，并存入result数组
 
-    10s后停止监听
-
     延时5s，结束函数，校验result数组是否有值
 
     Returns:
@@ -172,8 +166,6 @@ async def test_robot_posture():
     """测试监听机器人姿态变化
 
     监听机器人姿态变化(需手动改变机器人姿态)，校验结果status是否有效(status>0)，并存入result数组
-
-    10s后停止监听
 
     延时5s，结束函数，并校验result数组是否有值
 
@@ -214,8 +206,6 @@ async def test_head_racket():
 
     监听机器人拍头事件(需手动拍打机器人头部)，校验结果type是否有效(type>0)，并存入result数组
 
-    10s后结束监听
-
     延时5s，结束函数，并校验result数组是否有值
 
     Returns:
@@ -250,17 +240,21 @@ async def test_head_racket():
     assert len(result), "ObserveHeadRacket result nil"
 
 
-if __name__ == '__main__':
-    device: WiFiDevice = asyncio.get_event_loop().run_until_complete(test_get_device_by_name())
+async def main():
+    device: WiFiDevice = await test_get_device_by_name()
     if device:
-        asyncio.get_event_loop().run_until_complete(test_connect(device))
-        asyncio.get_event_loop().run_until_complete(test_start_run_program())
+        await test_connect(device)
+        await test_start_run_program()
 
-        asyncio.get_event_loop().run_until_complete(test_speech_recognise())
-        asyncio.get_event_loop().run_until_complete(test_face_detect())
-        asyncio.get_event_loop().run_until_complete(test_face_recognise())
-        asyncio.get_event_loop().run_until_complete(test_infrared_distance())
-        asyncio.get_event_loop().run_until_complete(test_robot_posture())
-        asyncio.get_event_loop().run_until_complete(test_head_racket())
+        await test_speech_recognise()
+        await test_face_detect()
+        await test_face_recognise()
+        await test_infrared_distance()
+        await test_robot_posture()
+        await test_head_racket()
 
-        asyncio.get_event_loop().run_until_complete(shutdown())
+        await shutdown()
+
+
+if __name__ == '__main__':
+    asyncio.run(main())

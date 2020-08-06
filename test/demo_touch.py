@@ -1,6 +1,6 @@
 import asyncio
 
-from mini.apis.api_expression import ControlBehavior
+from mini.apis.api_behavior import StartBehavior
 from mini.apis.api_observe import ObserveHeadRacket, HeadRacketType
 from mini.dns.dns_browser import WiFiDevice
 from mini.pb2.codemao_observeheadracket_pb2 import ObserveHeadRacketResponse
@@ -17,9 +17,13 @@ async def test_ObserveHeadRacket():
     当机器人头部被双击时，停止监听，并跳一个舞蹈
 
     # ObserveHeadRacketResponse.type:
+
     # class HeadRacketType(enum.Enum):
+
     #     SINGLE_CLICK = 1  # 单击
+
     #     LONG_PRESS = 2  # 长按
+
     #     DOUBLE_CLICK = 3  # 双击
 
     """
@@ -37,8 +41,7 @@ async def test_ObserveHeadRacket():
         # 监听到一个事件后,停止监听,
         print("{0}".format(str(msg.type)))
 
-        if msg.type == HeadRacketType.DOUBLE_CLICK:
-
+        if msg.type == HeadRacketType.DOUBLE_CLICK.value:
             observer.stop()
             # 执行个舞动
             asyncio.create_task(__dance())
@@ -50,7 +53,7 @@ async def test_ObserveHeadRacket():
 
 
 async def __dance():
-    await ControlBehavior(name="dance_0002").execute()
+    await StartBehavior(name="dance_0002").execute()
     # 结束event_loop
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
