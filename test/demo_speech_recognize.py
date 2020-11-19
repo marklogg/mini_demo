@@ -41,11 +41,16 @@ async def test_speech_recognise():
     def handler(msg: SpeechRecogniseResponse):
         print(f'=======handle speech recognise:{msg}')
         print("{0}".format(str(msg.text)))
-        if str(msg.text) == "悟空":
+
+        # if str(msg.text)[-1].isalpha() is False:
+        #     if str(msg.text)[:-1].lower() == "Hello":
+        #         asyncio.create_task(__tts())
+
+        if str(msg.text).lower() == "悟空":
             # 监听到"悟空", tts打个招呼
             asyncio.create_task(__tts())
 
-        elif str(msg.text) == "结束":
+        elif str(msg.text).lower() == "结束":
             # 监听到结束, 停止监听
             observe.stop()
             # 结束event_loop

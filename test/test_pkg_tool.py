@@ -1,6 +1,6 @@
 import mini.pkg_tool as Tool
 
-robot_id = "0879"
+robot_id = "0090"
 
 if __name__ == '__main__':
     # 查询alphamini包信息

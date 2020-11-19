@@ -79,6 +79,8 @@ async def shutdown():
 
 # 默认的日志级别是Warning, 设置为INFO
 MiniSdk.set_log_level(logging.INFO)
+# 设置机器人类型
+MiniSdk.set_robot_type(MiniSdk.RobotType.DEDU)
 
 
 async def main():
