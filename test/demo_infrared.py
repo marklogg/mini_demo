@@ -9,11 +9,11 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def test_ObserveInfraredDistance():
-    """监听红外距离demo
+    """Monitor infrared distance demo
 
-    监听红外距离事件，机器人上报检测到的与面前最近障碍物的红外距离
+     Monitor infrared distance events, the robot reports the detected infrared distance to the nearest obstacle in front of you
 
-    当返回的红外距离小于500，停止监听，并播报"检测到红外距离xxx"(xxx是红外距离数值)
+     When the returned infrared distance is less than 500, stop monitoring and broadcast "Detected infrared distance xxx" (xxx is the infrared distance value)
 
     """
     # 红外监听对象
@@ -33,7 +33,7 @@ async def test_ObserveInfraredDistance():
 
 
 async def __tts(distance: int):
-    result = await StartPlayTTS(text=f"检测到红外距离{distance}").execute()
+    result = await StartPlayTTS(text=f"Detected infrared distance {distance}").execute()
     print(f"tts over {result}")
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
@@ -44,6 +44,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveInfraredDistance())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

@@ -13,26 +13,26 @@ from test.test_connect import test_connect, shutdown
 from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
-# 测试text合成声音
+# Test text synthesis sound
 async def test_play_tts():
-    """测试播放tts
+    """Test play tts
 
-    使机器人开始播放一段tts，内容为"你好， 我是悟空， 啦啦啦"，并等待结果
+     Make the robot start playing a tts, the content is "Hello, I am Alphamini, la la la", and wait for the result
 
-    #ControlTTSResponse.isSuccess : 是否成功
+     #ControlTTSResponse.isSuccess: Is it successful
 
-    #ControlTTSResponse.resultCode : 返回码
+     #ControlTTSResponse.resultCode: Return code
 
     """
-    # is_serial:串行执行
-    # text:要合成的文本
-    block: StartPlayTTS = StartPlayTTS(text="你好， 我是悟空， 啦啦啦")
-    # 返回元组, response是个ControlTTSResponse
+    # is_serial: Serial execution
+    # text: The text to be synthesized
+    block: StartPlayTTS = StartPlayTTS(text="Hello, I am Alphamini, la la la")
+    # Return a tuple, response is a ControlTTSResponse
     (resultType, response) = await block.execute()
 
     print(f'test_play_tts result: {response}')
-    # StartPlayTTS block的response包含resultCode和isSuccess
-    # 如果resultCode !=0 可以通过errors.get_speech_error_str(response.resultCode)) 查询错误描述信息
+    # The response of  StartPlayTTS block contains resultCode and isSuccess
+    # If resultCode !=0, you can query the error description information through errors.get_speech_error_str(response.resultCode))
     print('resultCode = {0}, error = {1}'.format(response.resultCode, errors.get_speech_error_str(response.resultCode)))
 
     assert resultType == MiniApiResultType.Success, 'test_play_tts timetout'
@@ -41,20 +41,21 @@ async def test_play_tts():
 
 
 async def test_stop_play_tts():
-    """测试停止播放tts
+    """Test stop playing tts
 
-    使机器人开始播放一段长文本tts，内容为"你好， 我是悟空， 啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦"，不等待结果
-    2s后，使机器人停止播放tts
+     Make the robot start to play a long text tts, the content is "Hello, I am Alphamini, la la la la la la la la la la la la la la la la la la la la la la la", do not wait result
+     After 2s, make the robot stop playing tts
 
-    #ControlTTSResponse.isSuccess : 是否成功
+     #ControlTTSResponse.isSuccess: Is it successful
 
-    #ControlTTSResponse.resultCode : 返回码
+     #ControlTTSResponse.resultCode: Return code
 
-    """
-    # is_serial:串行执行
-    # text:要合成的文本
-    block: StartPlayTTS = StartPlayTTS(is_serial=False, text="你好， 我是悟空， 啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦")
-    # 返回bool 表示是否发送成功
+     """
+    # is_serial: Serial execution
+    # text: The text to be synthesized
+    block: StartPlayTTS = StartPlayTTS(is_serial=False,
+                                       text="Hello, I am Alphamini, la la la la la la la la la la la la la la la la la la la la la la la")
+    # Return bool to indicate whether the transmission was successful
     await block.execute()
 
     await asyncio.sleep(2)
@@ -62,8 +63,8 @@ async def test_stop_play_tts():
     (resultType, response) = await StopPlayTTS().execute()
 
     print(f'test_stop_play_tts result: {response}')
-    # StopPlayTTS block的response包含resultCode和isSuccess
-    # 如果resultCode !=0 可以通过errors.get_speech_error_str(response.resultCode)) 查询错误描述信息
+    # The response of StopPlayTTS block contains resultCode and isSuccess
+    # If resultCode !=0, you can query the error description information through errors.get_speech_error_str(response.resultCode))
     print('resultCode = {0}, error = {1}'.format(response.resultCode, errors.get_speech_error_str(response.resultCode)))
 
     assert resultType == MiniApiResultType.Success, 'test_stop_play_tts timetout'
@@ -71,22 +72,22 @@ async def test_stop_play_tts():
     assert response.isSuccess, 'test_stop_play_tts failed'
 
 
-# 测试播放音效(在线)
+# Test playback sound (online)
 async def test_play_online_audio():
-    """测试播放在线音效
+    """Test playing online sound
 
-    使机器人播放一段在线音效，例如"http://hao.haolingsheng.com/ring/000/995/52513bb6a4546b8822c89034afb8bacb.mp3"
+     Make the robot play an online sound effect, such as "http://hao.haolingsheng.com/ring/000/995/52513bb6a4546b8822c89034afb8bacb.mp3"
 
-    支持格式有mp3,amr,wav 等
+     Supported formats are mp3, amr, wav, etc.
 
-    并等待结果
+     And wait for the result
 
-    #PlayAudioResponse.isSuccess : 是否成功
+     #PlayAudioResponse.isSuccess: Is it successful
 
-    #PlayAudioResponse.resultCode : 返回码
+     #PlayAudioResponse.resultCode: Return code
 
     """
-    # 播放音效, url表示要播放的音效列表
+    # Play sound effects, url indicates the list of sound effects to be played
     block: PlayAudio = PlayAudio(
         url="http://hao.haolingsheng.com/ring/000/995/52513bb6a4546b8822c89034afb8bacb.mp3",
         storage_type=AudioStorageType.NET_PUBLIC)
@@ -102,14 +103,13 @@ async def test_play_online_audio():
 
 
 async def test_play_local_audio():
-    """测试播放本地音效
+    """Test playing local sound
 
-    使机器人播放一段本地内置音效，音效名称为"read_016"，并等待结果
+     Make the robot play a local built-in sound effect, the sound effect name is "read_016", and wait for the result
 
-    #PlayAudioResponse.isSuccess : 是否成功
+     #PlayAudioResponse.isSuccess: Is it successful
 
-    #PlayAudioResponse.resultCode : 返回码
-
+     #PlayAudioResponse.resultCode: Return code
     """
 
     block: PlayAudio = PlayAudio(
@@ -126,26 +126,26 @@ async def test_play_local_audio():
     assert response.isSuccess, 'test_play_local_audio failed'
 
 
-# 测试获取机器人的音效资源
+# Test to obtain the sound resources of the robot
 async def test_get_audio_list():
-    """测试获取音效列表
+    """Test to get a list of sound effects
 
-    获取机器人内置的音效列表，并等待结果
+     Get the list of sound effects built into the robot and wait for the result
 
-    #GetAudioListResponse.audio ([Audio]) : 音效列表
+     #GetAudioListResponse.audio ([Audio]): Audio effect list
 
-        #Audio.name : 音效名
+         #Audio.name: Audio effect name
 
-        #Audio.suffix : 音效后缀
+         #Audio.suffix: audio suffix
 
-    #GetAudioListResponse.isSuccess : 是否成功
+     #GetAudioListResponse.isSuccess: Is it successful
 
-    #GetAudioListResponse.resultCode : 返回码
+     #GetAudioListResponse.resultCode: Return code
 
     """
-    # search_type: AudioSearchType.INNER 是指机器人内置的不可修改的音效, AudioSearchType.CUSTOM 是放置在sdcard/customize/music目录下可别开发者修改的音效
+    # search_type: AudioSearchType.INNER refers to the unmodifiable sound effect built into the robot, AudioSearchType.CUSTOM is placed in the sdcard/customize/music directory and can be modified by the developer
     block: FetchAudioList = FetchAudioList(search_type=AudioSearchType.INNER)
-    # response是个GetAudioListResponse
+    # response is a GetAudioListResponse
     (resultType, response) = await block.execute()
 
     print(f'test_get_audio_list result: {response}')
@@ -155,30 +155,32 @@ async def test_get_audio_list():
     assert response.isSuccess, 'test_get_audio_list failed'
 
 
-# 测试停止正在播放的tts
+# Test stop the tts being played
 async def test_stop_audio_tts():
-    """测试停止所有正在播放的音频
+    """Test stop all audio being played
 
-    先播放一段tts，3s后，停止所有所有音效，并等待结果
+     Play a period of tts first, after 3s, stop all sound effects, and wait for the result
 
-    #StopAudioResponse.isSuccess : 是否成功　
+     #StopAudioResponse.isSuccess: Is it successful　
 
-    #StopAudioResponse.resultCode : 返回码
+     #StopAudioResponse.resultCode: Return code
 
     """
-    # 设置is_serial=False, 表示只需将指令发送给机器人,await不需要等机器人执行完结果再返回
-    block: StartPlayTTS = StartPlayTTS(is_serial=False, text="你让我说，让我说，不要打断我，不要打断我，不要打断我")
+    # Set is_serial=False, which means that you only need to send the instruction to the robot, and await does not need to wait for the robot to finish executing the result before returning
+    block: StartPlayTTS = StartPlayTTS(is_serial=False,
+                                       text="You let me say, let me say, don't interrupt me, don't interrupt me, don't interrupt me")
     response = await block.execute()
     print(f'test_stop_audio.play_tts: {response}')
     await asyncio.sleep(3)
 
-    # 停止所有声音
+    # Stop all sounds
     block: StopAllAudio = StopAllAudio()
     (resultType, response) = await block.execute()
 
     print(f'test_stop_audio:{response}')
 
-    block: StartPlayTTS = StartPlayTTS(text="第二次, 你让我说，让我说，不要打断我，不要打断我，不要打断我")
+    block: StartPlayTTS = StartPlayTTS(
+        text="The second time, you let me say, let me say, don’t interrupt me, don’t interrupt me, don’t interrupt me")
     asyncio.create_task(block.execute())
     print(f'test_stop_audio.play_tts: {response}')
     await asyncio.sleep(3)
@@ -188,16 +190,15 @@ async def test_stop_audio_tts():
     assert response.isSuccess, 'test_stop_audio failed'
 
 
-# 测试, 改变机器人的音量
+# Test, change the volume of the robot
 async def test_change_robot_volume():
-    """调整机器人音量demo
+    """Adjust the robot volume demo
 
-    设置机器人音量为0.5，等待回复结果
+     Set the robot volume to 0.5 and wait for the reply result
 
-    #ChangeRobotVolumeResponse.isSuccess : 是否成功
+     #ChangeRobotVolumeResponse.isSuccess: Is it successful
 
-    #ChangeRobotVolumeResponse.resultCode : 返回码
-
+     #ChangeRobotVolumeResponse.resultCode: Return code
     """
     # volume: 0~1.0
     block: ChangeRobotVolume = ChangeRobotVolume(volume=0.5)

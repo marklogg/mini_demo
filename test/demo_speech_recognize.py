@@ -9,20 +9,20 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def __tts():
-    block: StartPlayTTS = StartPlayTTS(text="你好， 我是悟空， 啦里啦，啦里啦")
+    block: StartPlayTTS = StartPlayTTS(text="Hello, I am alphamini, Lalila, Lalila")
     response = await block.execute()
     print(f'tes_play_tts: {response}')
 
 
-# 测试监听语音识别
+# Test ,monitor speech recognition
 async def test_speech_recognise():
-    """监听语音识别demo
+    """Monitor voice recognition demo
 
-    监听语音识别事件，机器人上报语音识别后的文字
+     Monitor voice recognition events, and the robot reports the text after voice recognition
 
-    当识别到语音为"悟空"时，播报"你好， 我是悟空， 啦里啦，啦里啦"
+     When the voice is recognized as "hello", broadcast "Hello, I am alphamini, Lalila, Lalila"
 
-    当识别到语音为"结束"时，停止监听
+     When the voice is recognized as "stop", stop monitoring
 
     # SpeechRecogniseResponse.text
 
@@ -41,23 +41,18 @@ async def test_speech_recognise():
     def handler(msg: SpeechRecogniseResponse):
         print(f'=======handle speech recognise:{msg}')
         print("{0}".format(str(msg.text)))
-
-        # if str(msg.text)[-1].isalpha() is False:
-        #     if str(msg.text)[:-1].lower() == "Hello":
-        #         asyncio.create_task(__tts())
-
-        if str(msg.text).lower() == "悟空":
-            # 监听到"悟空", tts打个招呼
+        if str(msg.text).lower() == "hello":
+            # "hello" is monitored, tts say hello
             asyncio.create_task(__tts())
 
-        elif str(msg.text).lower() == "结束":
-            # 监听到结束, 停止监听
+        elif str(msg.text).lower() == "stop":
+            # Listen "stop", stop monitoring
             observe.stop()
-            # 结束event_loop
+            # stop event_loop
             asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
     observe.set_handler(handler)
-    # 启动
+    # start
     observe.start()
     await asyncio.sleep(0)
 
@@ -68,6 +63,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_speech_recognise())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

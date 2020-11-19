@@ -10,22 +10,21 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 # 测试, 触摸监听
 async def test_ObserveHeadRacket():
-    """监听拍头事件demo
+    """Monitor head event demo
 
-    监听拍头事件，当机器人头部被拍击时，上报拍头类型
+     Monitor the head event, and report the head type when the robot's head is tapped
 
-    当机器人头部被双击时，停止监听，并跳一个舞蹈
+     When the head of the robot is double-clicked, stop monitoring and dance a dance
 
-    # ObserveHeadRacketResponse.type:
+     # ObserveHeadRacketResponse.type:
 
-    # class HeadRacketType(enum.Enum):
+     # class HeadRacketType(enum.Enum):
 
-    #     SINGLE_CLICK = 1  # 单击
+     # SINGLE_CLICK = 1 # Click
 
-    #     LONG_PRESS = 2  # 长按
+     # LONG_PRESS = 2 # Long press
 
-    #     DOUBLE_CLICK = 3  # 双击
-
+     # DOUBLE_CLICK = 3 # Double click
     """
     # 创建监听
     observer: ObserveHeadRacket = ObserveHeadRacket()
@@ -34,11 +33,11 @@ async def test_ObserveHeadRacket():
     # ObserveHeadRacketResponse.type:
     # @enum.unique
     # class HeadRacketType(enum.Enum):
-    #     SINGLE_CLICK = 1  # 单击
-    #     LONG_PRESS = 2  # 长按
-    #     DOUBLE_CLICK = 3  # 双击
+    # SINGLE_CLICK = 1 # Click
+    # LONG_PRESS = 2 # Long press
+    # DOUBLE_CLICK = 3 # Double click
     def handler(msg: ObserveHeadRacketResponse):
-        # 监听到一个事件后,停止监听,
+        # After listening to an event, stop listening,
         print("{0}".format(str(msg.type)))
 
         if msg.type == HeadRacketType.DOUBLE_CLICK.value:
@@ -64,6 +63,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveHeadRacket())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

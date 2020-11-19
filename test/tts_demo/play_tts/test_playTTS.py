@@ -6,8 +6,8 @@ from mini.mini_sdk import WiFiDevice
 
 
 async def _play_tts():
-    block: StartPlayTTS = StartPlayTTS(text="你好， 我是悟空，测试测试，啦啦啦")
-    # 返回元组, response是个ControlTTSResponse
+    block: StartPlayTTS = StartPlayTTS(text="hello! i'm alphamini, test, test, test")
+    # return (), response is `ControlTTSResponse`
     (resultType, response) = await block.execute()
     print(f'{response}')
 

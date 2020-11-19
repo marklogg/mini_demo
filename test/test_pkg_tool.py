@@ -3,28 +3,28 @@ import mini.pkg_tool as Tool
 robot_id = "0090"
 
 if __name__ == '__main__':
-    # 查询alphamini包信息
+    # Query alphamini package information
     # info = Tool.query_py_pkg(pkg_name="alphamini", robot_id=robot_id)
     # print(f'{info}')
     #
-    # # 列出机器人内py包
+    # # List py packages in the robot
     # list_info = Tool.list_py_pkg(robot_id=robot_id)
     # print(f'{list_info}')
     #
-    # # 安装当前目录下simple_socket-0.0.2-py3-none-any.whl文件
+    # # Install the simple_socket-0.0.2-py3-none-any.whl file in the current directory
     # Tool.install_py_pkg(package_path="simple_socket-0.0.2-py3-none-any.whl", robot_id=robot_id, debug=True)
-    # # 卸载simple_socket
+    # # Uninstall simple_socket
     # Tool.uninstall_py_pkg(pkg_name="simple-socket", robot_id=robot_id, debug=True)
 
-    # 将当前目录下的tts_demo工程打包成py wheel， 返回值为打包生成后的wheel路径
+    # Package the tts_demo project in the current directory into py wheel, and the return value is the wheel path after packaged generation
     pkg_path = Tool.setup_py_pkg("tts_demo")
     print(f'{pkg_path}')
 
-    # 卸载tts_demo
+    # Uninstall tts_demo
     Tool.uninstall_py_pkg(pkg_name="tts_demo", robot_id=robot_id)
 
-    # 重新安装打包后的tts_demo
+    # Reinstall the packaged tts_demo
     Tool.install_py_pkg(package_path=pkg_path, robot_id=robot_id, debug=False)
 
-    # 触发tts_demo脱机执行
+    # Trigger tts_demo offline execution
     Tool.run_py_pkg("tts_demo", robot_id=robot_id)

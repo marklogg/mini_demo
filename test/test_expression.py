@@ -11,15 +11,15 @@ from test.test_connect import test_connect, shutdown, test_start_run_program
 from test.test_connect import test_get_device_by_name
 
 
-# 测试让眼睛演示个表情
+# Test , let the eyes show an expression
 async def test_play_expression():
-    """测试播放表情
+    """Test playing emoji
 
-    让机器人播放一个名为"codemao1"的内置表情，并等待回复结果
+     Let the robot play a built-in emoticon named "codemao1" and wait for the reply result
 
-    #PlayExpressionResponse.isSuccess : 是否成功
+     #PlayExpressionResponse.isSuccess: Is it successful
 
-    #PlayExpressionResponse.resultCode : 返回码
+     #PlayExpressionResponse.resultCode: Return code
 
     """
     block: PlayExpression = PlayExpression(express_name="codemao1")
@@ -34,15 +34,15 @@ async def test_play_expression():
     assert response.isSuccess, 'play_expression failed'
 
 
-# 测试, 让机器人跳舞/停止跳舞
+# Test, let the robot dance/stop dancing
 async def test_control_behavior():
-    """测试控制表现力
+    """Test control performance
 
-    让机器人开始跳一个名为"dance_0004"的舞蹈，并等待回复结果
+     Let the robot start a dance named "dance_0004" and wait for the response result
 
     """
     # control_type: START, STOP
-    block: StartBehavior = StartBehavior(name="dance_0004")
+    block: StartBehavior = StartBehavior(name="dance_0004en")
     # response ControlBehaviorResponse
     (resultType, response) = await block.execute()
 
@@ -57,39 +57,39 @@ async def test_control_behavior():
 
 
 async def test_stop_behavior():
-    # 开始
-    block: StartBehavior = StartBehavior(name="dance_0004")
+    # Start
+    block: StartBehavior = StartBehavior(name="dance_0004en")
     # response ControlBehaviorResponse
     asyncio.create_task(await block.execute())
 
-    # 5秒后停止
+    # Stop after 5 seconds
     await asyncio.sleep(5)
     block: StopBehavior = StopBehavior()
     (resultType, response) = await block.execute()
     print(f'test_stop_behavior result: {response}')
 
 
-# 测试, 设置嘴巴灯颜色为绿色 常亮
+# Test, set the color of the mouth light to green and always on
 async def test_set_mouth_lamp():
-    # mode: 嘴巴灯模式，0：普通模式，1：呼吸模式
+    # mode: mouth light mode, 0: normal mode, 1: breathing mode
 
-    # color: 嘴巴灯颜色，1：红色，2：绿色，3：蓝色
+    # color: mouth light color, 1: red, 2: green, 3: blue
 
-    # duration: 持续时间，单位为毫秒，-1表示常亮
+    # duration: duration, in milliseconds, -1 means always on
 
-    # breath_duration: 闪烁一次时长，单位为毫秒
+    # breath_duration: The duration of one blink, in milliseconds
 
-    """测试设置嘴巴灯
+    """Test setting mouth light
 
-    设置机器人嘴巴灯正常模式、绿色、常亮3s，并等待回复结果
+    Set the robot's mouth light to normal mode, green and always on for 3s, and wait for the reply result
 
-    当mode=NORMAL时，duration参数起作用，表示常亮多久时间
+    When mode=NORMAL, the duration parameter works, indicating how long it will stay on
 
-    当mode=BREATH，breath_duration参数起作用，表示多久呼吸一次
+    When mode=BREATH, the breath_duration parameter works, indicating how often to breathe
 
-    #SetMouthLampResponse.isSuccess : 是否成功
+    #SetMouthLampResponse.isSuccess: Is it successful
 
-    #SetMouthLampResponse.resultCode : 返回码
+    #SetMouthLampResponse.resultCode: Return code
 
     """
 
@@ -105,15 +105,15 @@ async def test_set_mouth_lamp():
     assert response.isSuccess or response.resultCode == 504, 'set_mouth_lamp failed'
 
 
-# 测试,开关嘴巴灯
+# Test, switch the mouth light
 async def test_control_mouth_lamp():
-    """测试控制嘴巴灯
+    """Test control mouth light
 
-    让机器人嘴巴灯关闭，并等待结果
+     Let the robot’s mouth light turn off and wait for the result
 
-    #ControlMouthResponse.isSuccess : 是否成功
+     #ControlMouthResponse.isSuccess: Is it successful
 
-    #ControlMouthResponse.resultCode : 返回码
+     #ControlMouthResponse.resultCode: Return code
 
     """
     # is_open: True,False

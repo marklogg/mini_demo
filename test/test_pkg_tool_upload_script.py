@@ -118,6 +118,7 @@ def test_list_upload_script():
 async def release():
     await mini.mini_sdk.release()
 
+
 if __name__ == '__main__':
     # test_upload_script()
     test_check_upload_script()

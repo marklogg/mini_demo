@@ -11,18 +11,18 @@ from test.test_connect import test_get_device_by_name
 
 # 测试, 执行一个动作文件
 async def test_play_action():
-    """执行一个动作demo
+    """Perform an action demo
 
-    控制机器人执行一个指定名称的本地(内置/自定义)动作，并等待执行结果回复
+     Control the robot to execute a local (built-in/custom) action with a specified name and wait for the execution result to reply
 
-    动作名称可用GetActionList获取
+     Action name can be obtained with GetActionList
 
-    #PlayActionResponse.isSuccess : 是否成功
+     #PlayActionResponse.isSuccess: Is it successful
 
-    #PlayActionResponse.resultCode : 返回码
+     #PlayActionResponse.resultCode: Return code
 
-    """
-    # action_name: 动作文件名, 可以通过GetActionList获取机器人支持的动作
+     """
+    # action_name: Action file name, you can get the actions supported by the robot through GetActionList
     block: PlayAction = PlayAction(action_name='018')
     # response: PlayActionResponse
     (resultType, response) = await block.execute()
@@ -36,17 +36,17 @@ async def test_play_action():
 
 # 测试, 控制机器人,向前/后/左/右 移动
 async def test_move_robot():
-    """控制机器人移动demo
+    """Control the robot mobile demo
 
-    控制机器人往左(LEFTWARD)移动10步，并等待执行结果
+     Control the robot to move 10 steps to the left (LEFTWARD) and wait for the execution result
 
-    #MoveRobotResponse.isSuccess : 是否成功　
+     #MoveRobotResponse.isSuccess: Is it successful　
 
-    #MoveRobotResponse.code : 返回码
+     #MoveRobotResponse.code: Return code
 
-    """
-    # step: 移动几步
-    # direction: 方向,枚举类型
+     """
+    # step: Move a few steps
+    # direction: direction, enumeration type
     block: MoveRobot = MoveRobot(step=10, direction=MoveRobotDirection.LEFTWARD)
     # response : MoveRobotResponse
     (resultType, response) = await block.execute()
@@ -60,12 +60,12 @@ async def test_move_robot():
 
 # 测试, 获取支持的动作文件列表
 async def test_get_action_list():
-    """获取动作列表demo
+    """Get action list demo
 
-    获取机器人内置的动作列表，等待回复结果
+     Get the list of built-in actions of the robot and wait for the reply result
 
     """
-    # action_type: INNER 是指机器人内置的不可修改的动作文件, CUSTOM 是放置在sdcard/customize/action目录下可被开发者修改的动作
+    # action_type: INNER refers to the unmodifiable action file built into the robot, and CUSTOM is an action that can be modified by the developer placed in the sdcard/customize/action directory
     block: GetActionList = GetActionList(action_type=RobotActionType.INNER)
     # response:GetActionListResponse
     (resultType, response) = await block.execute()

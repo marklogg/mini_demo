@@ -14,20 +14,20 @@ from test.test_connect import test_connect, shutdown, test_start_run_program
 from test.test_connect import test_get_device_by_name
 
 
-# 测试人脸侦测
+# Test face detection
 async def test_face_detect():
-    """测试人脸个数侦测
+    """Test face count detection
 
-    侦测人脸个数，10s超时，并等待回复结果
+     Detect the number of faces, 10s timeout, and wait for the reply
 
-    #FaceDetectResponse.count : 人脸个数
+     #FaceDetectResponse.count: the number of faces
 
-    #FaceDetectResponse.isSuccess : 是否成功
+     #FaceDetectResponse.isSuccess: Is it successful
 
-    #FaceDetectResponse.resultCode : 返回码
+     #FaceDetectResponse.resultCode: Return code
 
     """
-    # timeout: 指定侦测时长
+    # timeout: Specify the detection time
     block: FaceDetect = FaceDetect(timeout=10)
     # response: FaceDetectResponse
     (resultType, response) = await block.execute()
@@ -39,24 +39,23 @@ async def test_face_detect():
     assert response.isSuccess, 'face_detect failed'
 
 
-# 测试人脸分析(性别)
+# Test face analysis (gender)
 async def test_face_analysis():
-    """测试人脸分析（性别）
+    """Test face analysis (gender)
 
-    侦测人脸信息(性别、年龄)，超时时间10s，并等待回复结果
+     Detect face information (gender, age), time out 10s, and wait for the reply result
 
-    当多人存在摄像头前时，返回占画面比例最大的那个人脸信息
+     When multiple people are in front of the camera, return the face information that accounts for the largest proportion of the screen
 
-    返回值：示例 {"age": 24, "gender": 99, "height": 238, "width": 238}
+     Return value: Example {"age": 24, "gender": 99, "height": 238, "width": 238}
 
-    age: 年龄
+     age: age
 
-    gender：[1, 100], 小于50为女性，大于50为男性
+     gender: [1, 100], females less than 50 are females, males greater than 50
 
-    height：人脸在摄像头画面中的高度
+     height: the height of the face in the camera image
 
-    width：人脸在摄像头画面中的宽度
-
+     width: the width of the face in the camera image
     """
     block: FaceAnalysis = FaceAnalysis(timeout=10)
     # response: FaceAnalyzeResponse
@@ -70,20 +69,20 @@ async def test_face_analysis():
     assert response.isSuccess, 'face_analysis failed'
 
 
-# 测试物体识别：识别花，10s超时
+# Test object recognition: recognize flowers, 10s timeout
 async def test_object_recognise_flower():
-    """测试物体(花)识别
+    """Test object (flower) recognition
 
-    让机器人识别花(需手动把花或花的照片放到机器人面前)，超时10s，并等待结果
+     Let the robot recognize the flower (you need to manually put the flower or flower photo in front of the robot), time out 10s, and wait for the result
 
-    #RecogniseObjectResponse.objects : 物体名数组[str]
+     #RecogniseObjectResponse.objects: array of object names [str]
 
-    #RecogniseObjectResponse.isSuccess : 是否成功
+     #RecogniseObjectResponse.isSuccess: Is it successful
 
-    #RecogniseObjectResponse.resultCode : 返回码
+     #RecogniseObjectResponse.resultCode: Return code
 
     """
-    # object_type: 支持FLOWER, FRUIT, GESTURE 三类物体
+    # object_type: supports FLOWER, FRUIT, GESTURE three types of objects
     block: ObjectRecognise = ObjectRecognise(object_type=ObjectRecogniseType.FLOWER, timeout=10)
     # response : RecogniseObjectResponse
     (resultType, response) = await block.execute()
@@ -96,20 +95,20 @@ async def test_object_recognise_flower():
     assert response.isSuccess, 'test_object_recognise_flower failed'
 
 
-# 测试物体识别：识别水果，10s超时
+# Test object recognition: recognize fruits, 10s timeout
 async def test_object_recognise_fruit():
-    """测试物体(水果)识别
+    """Test object (fruit) recognition
 
-    让机器人识别花(需手动把水果或水果的照片放到机器人面前)，超时10s，并等待结果
+     Let the robot recognize the flower (you need to manually put the fruit or fruit photo in front of the robot), time out 10s, and wait for the result
 
-    #RecogniseObjectResponse.objects : 物体名数组[str]
+     #RecogniseObjectResponse.objects: array of object names [str]
 
-    #RecogniseObjectResponse.isSuccess : 是否成功
+     #RecogniseObjectResponse.isSuccess: Is it successful
 
-    #RecogniseObjectResponse.resultCode : 返回码
+     #RecogniseObjectResponse.resultCode: Return code
 
-    """
-    # object_type: 支持FLOWER, FRUIT, GESTURE 三类物体
+     """
+    # object_type: Support FLOWER, FRUIT, GESTURE three types of objects
     block: ObjectRecognise = ObjectRecognise(object_type=ObjectRecogniseType.FRUIT, timeout=10)
     # response : RecogniseObjectResponse
     (resultType, response) = await block.execute()
@@ -122,20 +121,20 @@ async def test_object_recognise_fruit():
     assert response.isSuccess, 'test_object_recognise_fruit failed'
 
 
-# 测试物体识别：识别手势，10s超时
+# Test object recognition: recognize gestures, 10s timeout
 async def test_object_recognise_gesture():
-    """测试物体(手势)识别
+    """Test object (gesture) recognition
 
-    让机器人识别花(需手动在机器人面前作出手势)，超时10s，并等待结果
+     Let the robot recognize the flower (need to manually make a gesture in front of the robot), time out 10s, and wait for the result
 
-    #RecogniseObjectResponse.objects : 物体名数组[str]
+     #RecogniseObjectResponse.objects: array of object names [str]
 
-    #RecogniseObjectResponse.isSuccess : 是否成功
+     #RecogniseObjectResponse.isSuccess: Is it successful
 
-    #RecogniseObjectResponse.resultCode : 返回码
+     #RecogniseObjectResponse.resultCode: Return code
 
-    """
-    # object_type: 支持FLOWER, FRUIT, GESTURE 三类物体
+     """
+    # object_type: Support FLOWER, FRUIT, GESTURE three types of objects
     block: ObjectRecognise = ObjectRecognise(object_type=ObjectRecogniseType.GESTURE, timeout=10)
     # response : RecogniseObjectResponse
     (resultType, response) = await block.execute()
@@ -148,21 +147,21 @@ async def test_object_recognise_gesture():
     assert response.isSuccess, 'test_object_recognise_gesture failed'
 
 
-# 测试拍照
+# Test photo
 async def test_take_picture():
-    """测试拍照
+    """Test photo
 
-    让机器人立即拍照，并等待结果
+     Let the robot take a photo immediately and wait for the result
 
-    #TakePictureResponse.isSuccess : 是否成功
+     #TakePictureResponse.isSuccess: Is it successful
 
-    #TakePictureResponse.code : 返回码
+     #TakePictureResponse.code: Return code
 
-    #TakePictureResponse.picPath : 照片在机器人里的存储路径
+     #TakePictureResponse.picPath: The storage path of the photo in the robot
 
-    """
+     """
     # response: TakePictureResponse
-    # take_picture_type: IMMEDIATELY-立即拍照, FINDFACE-找到人脸再拍照 两种拍照效果
+    # take_picture_type: IMMEDIATELY-photograph immediately, FINDFACE-find the face and take a photo with two photo effects
     (resultType, response) = await TakePicture(take_picture_type=TakePictureType.IMMEDIATELY).execute()
 
     print(f'test_take_picture result: {response}')
@@ -172,29 +171,28 @@ async def test_take_picture():
     assert response.isSuccess, 'test_take_picture failed'
 
 
-# 测试人脸识别
+# Test face recognition
 async def test_face_recognise():
-    """测试人脸识别
+    """Test face recognition
 
-    让机器人进行人脸识别检测，超时10s，并等待结果
+     Let the robot perform face recognition detection, time out 10s, and wait for the result
 
 
-    #FaceRecogniseResponse.faceInfos : [FaceInfoResponse] 人脸信息数组
+     #FaceRecogniseResponse.faceInfos: [FaceInfoResponse] face information array
 
-        FaceInfoResponse.id : 人脸id
+         FaceInfoResponse.id: face id
 
-        FaceInfoResponse.name : 姓名，如果是陌生人，则默认name为"stranger"
+         FaceInfoResponse.name: name, if it is a stranger, the default name is "stranger"
 
-        FaceInfoResponse.gender : 性别
+         FaceInfoResponse.gender: gender
 
-        FaceInfoResponse.age : 年龄
+         FaceInfoResponse.age: age
 
-    #FaceRecogniseResponse.isSuccess : 是否成功
+     #FaceRecogniseResponse.isSuccess: Is it successful
 
-    #FaceRecogniseResponse.resultCode : 返回码
+     #FaceRecogniseResponse.resultCode: Return code
 
-    Returns:
-
+     Returns:
     """
     # response : FaceRecogniseResponse
     (resultType, response) = await FaceRecognise(timeout=10).execute()
@@ -207,14 +205,13 @@ async def test_face_recognise():
     assert response.isSuccess, 'test_face_recognise failed'
 
 
-# 测试获取红外探测距离
+# Test to obtain infrared detection distance
 async def test_get_infrared_distance():
-    """测试红外距离检测
+    """Test infrared distance detection
 
-    获取当前机器人检测到的红外距离，并等待结果
+     Get the infrared distance detected by the current robot and wait for the result
 
-    #GetInfraredDistanceResponse.distance : 红外距离
-
+     #GetInfraredDistanceResponse.distance: Infrared distance
     """
     # response: GetInfraredDistanceResponse
     (resultType, response) = await GetInfraredDistance().execute()
@@ -227,25 +224,25 @@ async def test_get_infrared_distance():
     assert response.distance > 0, 'test_get_infrared_distance failed'
 
 
-# 测试获取目前机器人内注册的人脸个数
+# Test to get the number of faces currently registered in the robot
 async def test_get_register_faces():
-    """测试获取已注册的人脸信息
+    """Test to obtain registered face information
 
-    获取在机器人中已注册的所有人脸信息，并等待结果
+     Get all the face information registered in the robot and wait for the result
 
-    #GetRegisterFacesResponse.faceInfos : [FaceInfoResponse] 人脸信息数组
+     #GetRegisterFacesResponse.faceInfos: [FaceInfoResponse] face information array
 
-        #FaceInfoResponse.id : 人脸id
+         #FaceInfoResponse.id: face id
 
-        #FaceInfoResponse.name : 姓名
+         #FaceInfoResponse.name: name
 
-        #FaceInfoResponse.gender : 性别
+         #FaceInfoResponse.gender: gender
 
-        #FaceInfoResponse.age : 年龄
+         #FaceInfoResponse.age: age
 
-    #GetRegisterFacesResponse.isSuccess : 是否成功
+     #GetRegisterFacesResponse.isSuccess: Is it successful
 
-    #GetRegisterFacesResponse.resultCode : 返回码
+     #GetRegisterFacesResponse.resultCode: Return code
 
     Returns:
 

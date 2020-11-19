@@ -5,31 +5,30 @@ import mini.mini_sdk as MiniSdk
 from mini.dns.dns_browser import WiFiDevice
 
 
-# 搜索指定序列号(在机器人屁股后面)的机器人, 可以只输入序列号尾部字符即可,长度任意, 建议5个字符以上可以准确匹配, 10秒超时
-# 搜索的结果WiFiDevice, 包含机器人名称,ip,port等信息
+# To search for the robot with the specified serial number (behind the robot's butt), you can enter only the tail characters of the serial number, any length, it is recommended that more than 5 characters can be matched accurately, and the timeout is 10 seconds
+# The search result WiFiDevice, contains robot name, ip, port and other information
 async def test_get_device_by_name():
-    """根据机器人序列号后缀搜索设备
+    """Search for devices based on the suffix of the robot serial number
 
-    搜索指定序列号(在机器人屁股后面)的机器人, 可以只输入序列号尾部字符即可,长度任意, 建议5个字符以上可以准确匹配, 10秒超时
+     To search for the robot with the specified serial number (behind the robot's butt), you can enter only the tail characters of the serial number, any length, it is recommended that more than 5 characters can be matched accurately, and a timeout of 10 seconds
 
 
-    Returns:
-        WiFiDevice: 包含机器人名称,ip,port等信息
-
+     Returns:
+         WiFiDevice: Contains information such as robot name, ip, port, etc.
     """
     result: WiFiDevice = await MiniSdk.get_device_by_name("00879", 10)
     print(f"test_get_device_by_name result:{result}")
     return result
 
 
-# 搜索指定序列号(在机器人屁股后面)的机器人,
+# Search for the robot with the specified serial number (behind the robot butt),
 async def test_get_device_list():
-    """搜索所有设备
+    """Search all devices
 
-    搜索所有设备，10s后返回结果
+     Search all devices, return results after 10s
 
-    Returns:
-        [WiFiDevice]: 所有搜索到的设备，WiFiDevice数组
+     Returns:
+         [WiFiDevice]: All searched devices, WiFiDevice array
 
     """
     results = await MiniSdk.get_device_list(10)
@@ -37,49 +36,49 @@ async def test_get_device_list():
     return results
 
 
-# MiniSdk.connect 返回值为bool, 这里忽略返回值
+# The return value of MiniSdk.connect is bool, the return value is ignored here
 async def test_connect(dev: WiFiDevice) -> bool:
-    """连接设备
+    """Connect the device
 
-    连接指定的设备
+     Connect the specified device
 
-    Args:
-        dev (WiFiDevice): 指定的设备对象 WiFiDevice
+     Args:
+         dev (WiFiDevice): The specified device object WiFiDevice
 
-    Returns:
-        bool: 是否连接成功
+     Returns:
+         bool: Whether the connection is successful
 
     """
     return await MiniSdk.connect(dev)
 
 
-# 进入编程模式,机器人有个tts播报,这里通过asyncio.sleep 让当前协程等6秒返回,让机器人播完
+# Enter the programming mode, the robot has a tts broadcast, here through asyncio.sleep, let the current coroutine wait 6 seconds to return, let the robot finish the broadcast
 async def test_start_run_program():
-    """进入编程模式demo
+    """Enter programming mode demo
 
-    使机器人进入编程模式，等待回复结果，并延时6秒，让机器人播完"进入编程模式"
+     Make the robot enter the programming mode, wait for the reply result, and delay 6 seconds, let the robot finish "Enter programming mode"
 
-    Returns:
-        None:
+     Returns:
+         None:
 
     """
     await MiniSdk.enter_program()
 
 
-# 断开连接并释放资源
+# Disconnect and release resources
 async def shutdown():
-    """断开连接并释放资源
+    """Disconnect and release resources
 
-    断开当前连接的设备，并释放资源
+     Disconnect the currently connected device and release resources
 
     """
     await MiniSdk.quit_program()
     await MiniSdk.release()
 
 
-# 默认的日志级别是Warning, 设置为INFO
+# The default log level is Warning, set to INFO
 MiniSdk.set_log_level(logging.INFO)
-# 设置机器人类型
+# Set robot type
 MiniSdk.set_robot_type(MiniSdk.RobotType.DEDU)
 
 

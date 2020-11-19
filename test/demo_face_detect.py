@@ -9,11 +9,11 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
 async def test_ObserveFaceDetect():
-    """人脸个数检测demo
+    """Face count detection demo
 
-    人脸个数检测,检测到人脸,则上报事件
+     Detection of the number of faces, if faces are detected, the incident is reported
 
-    当检测到人脸个数大于等于1个时，停止监听，并播报"在我面前好像有xx个人脸"(xx为人脸个数)
+     When the number of faces detected is greater than or equal to 1, stop monitoring and broadcast "There seems to be xx faces in front of me" (xx is the number of faces)
 
     """
     observer: ObserveFaceDetect = ObserveFaceDetect()
@@ -33,7 +33,7 @@ async def test_ObserveFaceDetect():
 
 
 async def __tts(count):
-    await StartPlayTTS(text=f'在我面前好像有{count}个人').execute()
+    await StartPlayTTS(text=f'There seems to be {count} people in front of me').execute()
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
 
@@ -43,6 +43,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveFaceDetect())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

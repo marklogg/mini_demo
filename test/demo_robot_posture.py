@@ -10,36 +10,35 @@ from test.test_connect import test_get_device_by_name, test_start_run_program
 
 # 测试,姿态检测
 async def test_ObserveRobotPosture():
-    """监听机器人姿态demo
+    """Monitor robot posture demo
 
-    监听机器人姿态变化事件，机器上报当前的姿态RobotPosture(当发生姿态发生改变的时候)
+     Monitor robot posture change events, and the machine reports the current posture RobotPosture (when the posture changes)
 
-    当机器人侧躺(LYING)或平躺(LYINGDOWN)时，停止监听，并播报"我摔倒了"
+     When the robot is lying on its side (LYING) or lying down (LYINGDOWN), stop monitoring and announce "I fell"
 
-    # ObserveFallClimbResponse.status
+     # ObserveFallClimbResponse.status
 
-    #     STAND = 1; //站立
+     # STAND = 1; //Stand
 
-    #     SPLITS_LEFT = 2; //左弓步
+     # SPLITS_LEFT = 2; //Left lunge
 
-    #     SPLITS_RIGHT = 3; //右弓步
+     # SPLITS_RIGHT = 3; //Right lunge
 
-    #     SITDOWN = 4; //坐下
+     # SITDOWN = 4; //Sit down
 
-    #     SQUATDOWN = 5; //蹲下
+     # SQUATDOWN = 5; //Squat down
 
-    #     KNEELING = 6; //跪下
+     # KNEELING = 6; //Kneel down
 
-    #     LYING = 7; //侧躺
+     # LYING = 7; //Lying on your side
 
-    #     LYINGDOWN = 8; //平躺
+     # LYINGDOWN = 8; //Lying down
 
-    #     SPLITS_LEFT_1 = 9; //左劈叉
+     # SPLITS_LEFT_1 = 9; //Left split
 
-    #     SPLITS_RIGHT_2 = 10;//右劈叉
+     # SPLITS_RIGHT_2 = 10;//Right split
 
-    #     BEND = 11;//弯腰
-
+     # BEND = 11;//Bent over
     """
     # 创建监听对象
     observer: ObserveRobotPosture = ObserveRobotPosture()
@@ -57,7 +56,7 @@ async def test_ObserveRobotPosture():
 
 
 async def __tts():
-    await StartPlayTTS(text="我摔倒了").execute()
+    await StartPlayTTS(text="Oh, I fell").execute()
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
 
@@ -67,6 +66,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveRobotPosture())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())

@@ -8,17 +8,17 @@ from test.test_connect import test_connect, shutdown
 from test.test_connect import test_get_device_by_name, test_start_run_program
 
 
-# 测试, 检测到注册的人脸,则上报事件, 如果陌生人,返回"stranger"
+# Test, if the registered face is detected, the incident will be reported, if it is a stranger, it will return "stranger"
 async def test_ObserveFaceRecognise():
-    """人脸识别demo
+    """Face recognition demo
 
-    监听人脸识别事件，机器人上报识别到的人脸信息(数组)
+     Monitor face recognition events, and the robot reports the recognized face information (array)
 
-    如果是已注册的人脸，返回人脸详细信息：id，名字，性别，年龄
+     If it is a registered face, return face details: id, name, gender, age
 
-    如果是陌生人，返回 name: "stranger"
+     If it is a stranger, return name: "stranger"
 
-    当成功识别到人脸后，停止监听，播报"你好，xxx"(xxx为人脸信息中的name)
+     When the face is successfully recognized, stop monitoring and broadcast "Hello, xxx" (xxx is the name in the face information)
 
     """
     observer: ObserveFaceRecognise = ObserveFaceRecognise()
@@ -39,7 +39,7 @@ async def test_ObserveFaceRecognise():
 
 
 async def __tts(name):
-    await StartPlayTTS(text=f'你好， {name}').execute()
+    await StartPlayTTS(text=f'hello ， {name}').execute()
     asyncio.get_running_loop().run_in_executor(None, asyncio.get_running_loop().stop)
 
 
@@ -49,6 +49,6 @@ if __name__ == '__main__':
         asyncio.get_event_loop().run_until_complete(test_connect(device))
         asyncio.get_event_loop().run_until_complete(test_start_run_program())
         asyncio.get_event_loop().run_until_complete(test_ObserveFaceRecognise())
-        # 定义了事件监听对象,必须让event_loop.run_forver()
+        # The event listener object is defined, and event_loop.run_forver() must be
         asyncio.get_event_loop().run_forever()
         asyncio.get_event_loop().run_until_complete(shutdown())
