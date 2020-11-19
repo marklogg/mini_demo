@@ -1,0 +1,6 @@
+/build
+__pycache__
+/.idea
+/venv
+/alphamini.egg-info
+/dist
