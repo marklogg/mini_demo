@@ -79,7 +79,7 @@ async def shutdown():
 # The default log level is Warning, set to INFO
 MiniSdk.set_log_level(logging.INFO)
 # Set robot type
-MiniSdk.set_robot_type(MiniSdk.RobotType.DEDU)
+MiniSdk.set_robot_type(MiniSdk.RobotType.EDU)
 
 
 async def main():
