@@ -1,4 +1,5 @@
 import asyncio
+import logging
 
 from mini import mini_sdk as MiniSdk
 from mini.apis.api_sound import StartPlayTTS
@@ -20,6 +21,12 @@ async def _run():
         await _play_tts()
         await MiniSdk.quit_program()
         await MiniSdk.release()
+
+
+# The default log level is Warning, set to INFO
+MiniSdk.set_log_level(logging.INFO)
+# Set robot type
+MiniSdk.set_robot_type(MiniSdk.RobotType.EDU)
 
 
 def main():
